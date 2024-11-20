@@ -1,10 +1,11 @@
 "use client";
 import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
+import WhatsApp from "@/components/whatsapp";
 import { AuthProvider } from "@/context/authContext";
 import { useEffect, useState } from "react";
 import "../globals.css";
-import WhatsAppButton from "@/components/whatsapp";
+
 
 export default function RootLayout({ children }) {
   const [isAdminRoute, setIsAdminRoute] = useState(false);
@@ -23,7 +24,7 @@ useEffect(() => {
         {!isAdminRoute && <Navigation />}
         {children} 
         {!isAdminRoute && <Footer />}
-        {!isAdminRoute && <WhatsAppButton/>}
+        {!isAdminRoute && <WhatsApp/>}
         </AuthProvider>
       </body>
     </html>

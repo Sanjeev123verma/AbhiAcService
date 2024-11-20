@@ -23,7 +23,7 @@ useEffect(() => {
         {!isAdminRoute && <Navigation />}
         {children} 
         {!isAdminRoute && <Footer />}
-        <WhatsAppButton/>
+        {!isAdminRoute && <WhatsAppButton/>}
         </AuthProvider>
       </body>
     </html>

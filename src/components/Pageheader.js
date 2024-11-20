@@ -8,33 +8,34 @@ import { FaGlobe } from 'react-icons/fa';
 const PageHeader = ({ title, breadcrumb }) => {
   return (
 
-    <div className=" bg-blue-400 text-white text-2xl p-2 flex justify-between items-center">
-      <div className="ml-8">
-        <h1 className="text-4xl font-bold text-black">{title}</h1>
-        <div className=" flex items-center mt-2">
-          <Link href="/">
-            {" "}
-            <IoHomeOutline className="text-3xl pr-2"/>{" "}
-          </Link>
-          <p className="text-white">{breadcrumb}</p>
-        </div>
+    <div className="mt-12 p-1 bg-blue-400 text-white text-lg flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+    {/* Title and Breadcrumb */}
+    <div className="md:ml-8 text-center items-center pt-2 md:text-left">
+      <h1 className="text-2xl md:text-4xl font-bold text-black">{title}</h1>
+      <div className="flex items-center justify-center md:justify-start pt-1 space-x-2">
+        <Link href="/" passHref>
+          <IoHomeOutline className="text-2xl md:text-3xl" />
+        </Link>
+        <p className="text-white text-sm md:text-base">{breadcrumb}</p>
       </div>
-
-      
-        {/* Additional content if needed */}
-        <div className="flex items-center">
-          <AiFillPhone className="text-3xl mr-2" />
-          <p>9594754553</p>
-        </div>
-        <div className="flex items-center">
-          <AiOutlineMail className="text-3xl mr-2" />
-          <p>gayatrisales1986@gmail.com</p>
-        </div>
-        <div className="flex items-center mr-8">
-          <FaGlobe className="text-3xl mr-2" />
-          <p>www.GayatriSales.com</p>
-        </div>
     </div>
+
+    {/* Contact Information */}
+    <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
+      <div className="flex items-center space-x-2">
+        <AiFillPhone className="text-2xl md:text-3xl" />
+        <p className="text-sm md:text-lg">8104556898</p>
+      </div>
+      <div className="flex items-center space-x-2">
+        <AiOutlineMail className="text-2xl md:text-3xl" />
+        <p className="text-sm  md:text-lg">gayatrisales1986@gmail.com</p>
+      </div>
+      <div className="flex items-center space-x-2">
+        <FaGlobe className="text-2xl md:text-3xl" />
+        <p className="text-sm md:text-lg">www.abhiacservice.com</p>
+      </div>
+    </div>
+  </div>
   );
 };
 

@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* About Us Section */}
         <div>
-          <h2 className="text-lg md:text-xl font-semibold mb-4">About Us</h2>
+          <h2 className="text-lg md:text-xl font-semibold mb-4 text-center items-center">About Us</h2>
           <p className="text-sm md:text-base">
             We are a leading company in our industry, committed to providing quality services. Our mission is to make your services experience better as enjoyable and convenient as possible.
           </p>
@@ -26,7 +26,7 @@ const Footer = () => {
         </div>
 
         {/* Navigate Section */}
-        <div>
+        <div className='text-center items-center'>
           <h2 className="text-lg md:text-xl font-semibold mb-4">Navigate</h2>
           <ul>
             <li><a href="/contact" className="text-sm md:text-base hover:underline">Contact Us</a></li>
@@ -37,11 +37,11 @@ const Footer = () => {
         </div>
 
         {/* Information Section */}
-        <div>
+        <div className='text-center items-center'>
           <h2 className="text-lg md:text-xl font-semibold mb-4">Information</h2>
           <p className="text-sm md:text-base">
             <strong>Address:</strong><br />
-            Gayatri Sales , Shop NO.2  <br/>mahavir sadan near Nirmala Niketan
+            Abhi AC Service & Gayatri Sales, Shop NO.2  <br/>mahavir sadan near Nirmala Niketan
                 school Vinayak nagar road Bhayander west.<br/>
             <strong>Contact Number:</strong><br />
             +91-9594754553

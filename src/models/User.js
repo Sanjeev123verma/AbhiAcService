@@ -1,7 +1,7 @@
-// src/models/Contact.js
+
 import mongoose from 'mongoose';
 
-const ContactSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please provide your name']
@@ -26,4 +26,4 @@ const ContactSchema = new mongoose.Schema({
   timestamps: true // This will add createdAt and updatedAt fields automatically
 });
 
-module.exports = mongoose.models.Contact || mongoose.model('Contact', ContactSchema);
+module.exports = mongoose.models.User || mongoose.model('User', UserSchema);

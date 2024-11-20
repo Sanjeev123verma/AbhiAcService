@@ -1,4 +1,5 @@
 "use client";
+import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import PageHeader from "@/components/Pageheader";
 import { AiFillPhone, AiOutlineMail } from "react-icons/ai";
@@ -14,6 +15,9 @@ const ContactPage = () => {
   });
 
   const [statusMessage, setStatusMessage] = useState('');
+  const searchParams = useSearchParams(); // Initialize the router
+  const service = searchParams.get('service');  // Get the service query parameter
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,7 +37,7 @@ const ContactPage = () => {
 
       const result = await res.json();
       if (res.ok) {
-        setStatusMessage('Thank you for your message! We will get back to you soon.');
+        setStatusMessage('Thank you for your message! Our Technician will visit to you soon.');
         setFormData({
           name: '',
           phone: '',
@@ -56,8 +60,8 @@ const ContactPage = () => {
       <div className="container mx-auto px-4 py-2 w-4/5">
         <h1 className="text-3xl font-bold mb-4">Get in Touch</h1>
         <div className="flex flex-col md:flex-row justify-between mx-auto gap-8">
-          <div className="md:w-[100%] p-10 bg-blue-200">
-            <h2 className="text-2xl font-semibold mb-4">Contact Form</h2>
+        <div className="md:w-[100%] p-10 bg-blue-200">
+        <h2 className="text-2xl font-semibold mb-4">{service || "Contact Form"}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <label htmlFor="name" className="sr-only">Your Name</label>
               <input
@@ -122,10 +126,10 @@ const ContactPage = () => {
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               >
-                Make a Reservation
+               Book now
               </button>
             </form>
-            {statusMessage && <p className="mt-4 text-center text-lg text-red-500">{statusMessage}</p>}
+            {statusMessage && <p className="mt-4 text-center text-lg font-bold text-red-500">{statusMessage}</p>}
           </div>
 
           {/* Contact Information */}
@@ -142,7 +146,7 @@ const ContactPage = () => {
             </div>
             <div className="mb-8 flex items-center">
               <AiFillPhone className="text-blue-500 mr-2" />
-              <p>9594754553</p>
+              <p>8104556898</p>
             </div>
             <div className="mb-8 flex items-center">
               <AiOutlineMail className="text-blue-500 mr-2" />
@@ -150,7 +154,7 @@ const ContactPage = () => {
             </div>
             <div className="mb-8 flex items-center">
               <FaGlobe className="text-blue-500 text-xl mr-2" />
-              <p>www.GayatriSales.com</p>
+              <p>www.abhiacservice.com</p>
             </div>
             <div className="flex justify-center space-x-3 text-blue-500 text-xl gap-4">
               <FaFacebook />
@@ -165,7 +169,7 @@ const ContactPage = () => {
           Our Location
         </h1>
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d120548.1460042818!2d72.86336325!3d19.2331844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1727672875924!5m2!1sen!2sin"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.3873013677403!2d72.84887097425795!3d19.30899304461867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b02b2d5c65cb%3A0xe2f32eb9fb1839ed!2sNirmala%20Niketan%20High%20School!5e0!3m2!1sen!2sin!4v1732011957419!5m2!1sen!2sin" 
           width="100%"
           height="450"
           style={{ border: 0 }}

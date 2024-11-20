@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import contact from '@/models/contact'  // Ensure your model name is correctly capitalized
+import contact from '@/models/User'  // Ensure your model name is correctly capitalized
 
 export async function POST(request) {
 
@@ -17,13 +17,13 @@ export async function POST(request) {
       return NextResponse.json({ message: 'Invalid phone number format.' }, { status: 400 });
     }
 
-    // Save the contact form data
+    // Save the contact form dataa
     const newContact = new contact({
       name,
       phone,
       address,
       service,
-      message,
+      message, 
     });
 
     await newContact.save();  // Save data to MongoDB

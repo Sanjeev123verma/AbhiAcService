@@ -92,6 +92,7 @@ import AcServiceInfo from "@/components/AcServiceInfo";
 import ExperienceSection from "@/components/Experience";
 import Banner from "@/components/Banner";
 
+
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-between w-full">
@@ -105,9 +106,9 @@ export default function Home() {
 
 const Features = () => {
   return (
-    <div className="relative top-[-100px] bg-gray-400 text-white w-full md:w-[85%] mx-auto rounded-lg z-30 shadow-xl">
+    <div className="relative top-[-100px] bg-gray-400 text-white w-[90%] md:w-[85%] mx-auto rounded-lg z-30 shadow-xl">
       <div className="px-4 sm:px-6 lg:px-8 items-center">
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center justify-center">
+        <div className="grid sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-center justify-center">
           <FeatureCard
             imgSrc="../Images/technician.png"
             title="20+ Certified Technicians"
@@ -116,7 +117,7 @@ const Features = () => {
           <FeatureCard
             imgSrc="../Images/M.png"
             title="All Brands Repair"
-            description="Gayatri Sales & Service, We repair Split & Window ACs of all major brands in Mumbai Maharashtra."
+            description="Abhi Ac Service, We repair Split & Window ACs of all major brands in Mumbai Maharashtra."
           />
           <FeatureCard
             imgSrc="../Images/customer-satisfaction.png"
@@ -139,8 +140,8 @@ const FeatureCard = ({ imgSrc, title, description }) => (
     <img src={imgSrc} alt="Icon Image" className="w-14 lg:w-16 h-12" />
     <div className="border-r-2 border-blue-600 rounded-r p-4 flex flex-col justify-between leading-normal">
       <div>
-        <h3 className="text-white font-bold text-lg lg:text-xl mb-2">{title}</h3>
-        <p className="text-base">{description}</p>
+        <h3 className="text-white font-extrabold text-lg lg:text-xl mb-2">{title}</h3>
+        <p className="text-base  font-bold">{description}</p>
       </div>
     </div>
   </div>

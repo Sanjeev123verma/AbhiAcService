@@ -8,7 +8,7 @@ import { FaGlobe } from 'react-icons/fa';
 const PageHeader = ({ title, breadcrumb }) => {
   return (
 
-    <div className="mt-12 p-1 bg-blue-400 text-white text-lg flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+    <div className="mt-12 p-1 px-4 bg-blue-400 text-white text-lg flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
     {/* Title and Breadcrumb */}
     <div className="md:ml-8 text-center items-center pt-2 md:text-left">
       <h1 className="text-2xl md:text-4xl font-bold text-black">{title}</h1>

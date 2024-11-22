@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import PageHeader from "@/components/Pageheader";
 import { AiFillPhone, AiOutlineMail } from "react-icons/ai";
-import { FaMapMarkerAlt, FaFacebook, FaTwitter, FaLinkedin, FaGlobe } from "react-icons/fa";
+import { FaMapMarkerAlt, FaFacebook, FaTwitter, FaLinkedin, FaGlobe, FaWhatsappSquare } from "react-icons/fa";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -56,11 +56,11 @@ const ContactPage = () => {
 
   return (
     <>
-      <PageHeader title="Contact us" breadcrumb=" /Contact" />
-      <div className="container mx-auto px-4 py-2 w-4/5">
+      <PageHeader title="Contact us" breadcrumb=" Contact us" />
+      <div className="container mx-auto px-4 py-2 md:w-4/5 items-center text-center">
         <h1 className="text-3xl font-bold mb-4">Get in Touch</h1>
         <div className="flex flex-col md:flex-row justify-between mx-auto gap-8">
-        <div className="md:w-[100%] p-10 bg-blue-200">
+        <div className="md:w-[100%] p-4 sm:p-12 bg-blue-200">
         <h2 className="text-2xl font-semibold mb-4">{service || "Contact Form"}</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <label htmlFor="name" className="sr-only">Your Name</label>
@@ -129,38 +129,39 @@ const ContactPage = () => {
                Book now
               </button>
             </form>
-            {statusMessage && <p className="mt-4 text-center text-lg font-bold text-red-500">{statusMessage}</p>}
+            {statusMessage && <p className="mt-4 text-center text-lg font-bold text-green-500">{statusMessage}</p>}
           </div>
 
           {/* Contact Information */}
           <div className="bg-slate-100 rounded-lg p-5 shadow-md max-w-sm mx-auto font-abc text-xl">
-            <h3 className="text-4xl font-extrabold mb-16 text-center">
+            <h1 className="text-4xl font-extrabold mb-12 text-center">
               Contact Info
-            </h3>
-            <div className="mb-8 flex items-center">
-              <FaMapMarkerAlt className="text-blue-500 text-4xl mr-2" />
+            </h1>
+            <div className="mb-8 flex items-center space-x-4">
+              <FaMapMarkerAlt className="text-blue-500 text-6xl" />
               <p>
                 Gayatri Sales , Shop NO.2 mahavir sadan near Nirmala Niketan
                 school Vinayak nagar road Bhayander west.
               </p>
             </div>
-            <div className="mb-8 flex items-center">
-              <AiFillPhone className="text-blue-500 mr-2" />
-              <p>8104556898</p>
+            <div className="mb-8 flex items-center space-x-8">
+              <AiFillPhone className="text-blue-500 text-4xl" />
+              <p>+91-8104556898</p>
             </div>
-            <div className="mb-8 flex items-center">
-              <AiOutlineMail className="text-blue-500 mr-2" />
-              <p>gayatrisales1986@gmail.com</p>
+            <div className="mb-8 flex items-center space-x-4">
+              <AiOutlineMail className="text-blue-500 text-4xl" />
+              <p>abhiacservice@gmail.com</p>
             </div>
-            <div className="mb-8 flex items-center">
-              <FaGlobe className="text-blue-500 text-xl mr-2" />
+            <div className="mb-8 flex items-center space-x-6">
+              <FaGlobe className="text-blue-500 text-4xl " />
               <p>www.abhiacservice.com</p>
             </div>
             <div className="flex justify-center space-x-3 text-blue-500 text-xl gap-4">
               <FaFacebook />
               <FaTwitter />
               <FaLinkedin />
-            </div>
+              <FaWhatsappSquare />
+            </div> 
           </div>
         </div>
       </div>
@@ -184,94 +185,3 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
-
-// import React from 'react';
-// export default function Contact() {
-//   return (
-//     <>
-//       {/* <Head>
-//         <title>Contact Us</title>
-//       </Head> */}
-//       <div className="container mx-auto px-4">
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//           {/* Contact Form */}
-//           <div>
-//             <h2 className="text-xl font-semibold mb-4">Get in Touch</h2>
-//             <form>
-//               <div className="mb-4">
-//                 <input type="text" placeholder="Your Name" className="p-2 border rounded w-full"/>
-//               </div>
-//               <div className="mb-4">
-//                 <input type="text" placeholder="Phone" className="p-2 border rounded w-full"/>
-//               </div>
-//               <div className="mb-4">
-//                 <input type="email" placeholder="Email" className="p-2 border rounded w-full"/>
-//               </div>
-//               <div className="mb-4">
-//                 <textarea placeholder="Message" className="p-2 border rounded w-full" rows="4"></textarea>
-//               </div>
-//               <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-//                 Send Message
-//               </button>
-//             </form>
-//           </div>
-
-//           {/* Contact Information */}
-//           <div className="bg-blue-100 p-6 rounded-lg">
-//             <h2 className="text-xl font-semibold mb-4">Contact Info</h2>
-//             <ul>
-//               <li className="mb-2"><strong>Address:</strong> Your Address Here</li>
-//               <li className="mb-2"><strong>Phone:</strong> +123456789</li>
-//               <li className="mb-2"><strong>Email:</strong> info@example.com</li>
-//               <li className="mb-2"><strong>Website:</strong> www.example.com</li>
-//             </ul>
-//             {/* Social Media Icons */}
-//             <div className="flex space-x-4 mt-4">
-//               <a href="#" className="text-blue-600 hover:text-blue-800"><svg>...</svg></a>
-//               <a href="#" className="text-blue-600 hover:text-blue-800"><svg>...</svg></a>
-//               <a href="#" className="text-blue-600 hover:text-blue-800"><svg>...</svg></a>
-//               <a href="#" className="text-blue-600 hover:text-blue-800"><svg>...</svg></a>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
-// const contact = () => {
-//   return (
-//     <>
-//       <div className="p-6 max-w-4xl mx-auto">
-//   <h2 className="text-2xl font-semibold">Your cart</h2>
-//   <div className="border-t border-gray-200 mt-4">
-//     <div className="flex items-center py-5">
-//       <img src="../Images/aa.jpeg" className="w-20 h-20 object-cover" alt="Product" />
-//       <div className="ml-4 flex-1">
-//         <h4 className="font-medium text-lg">JOIN Wilde Perfume Stick</h4>
-//         <p className="text-sm text-gray-600">Vanilla, rose | 30 ml / 1 fl oz</p>
-//         <p className="text-gray-900 mt-2">€59,00</p>
-//       </div>
-//       <div className="flex items-center space-x-4">
-//         <input type="number" value="1" className="w-16 border rounded px-2 py-1" />
-//         <a href="#" className="text-blue-600">Remove</a>
-//       </div>
-//     </div>
-//     {/* <!-- Repeat for other products --> */}
-//     <div className="flex justify-between items-center mt-4 border-t pt-4">
-//       <p className="text-xl font-semibold">Subtotal</p>
-//       <p className="text-xl font-semibold">€137,00 EUR</p>
-//     </div>
-//     <p className="text-gray-500 text-sm mt-2">Taxes and <a href="#" className="text-blue-600">shipping</a> calculated at checkout</p>
-//     <div className="mt-6 flex justify-between">
-//       <button className="text-blue-600">CONTINUE SHOPPING</button>
-//       <button className="bg-blue-600 text-white px-4 py-2 rounded">CHECKOUT</button>
-//     </div>
-//   </div>
-// </div>
-
-//     </>
-//   )
-// }
-
-// export default contact

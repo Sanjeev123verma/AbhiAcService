@@ -5,6 +5,7 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp } from 'react-icons/fa'
 const Footer = () => {
   return (
     <footer className="bg-blue-300 text-black py-10 px-4">
+      
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* About Us Section */}
         <div>

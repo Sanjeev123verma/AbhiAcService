@@ -12,7 +12,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white shadow-lg z-50 font-headerfont">
+    <nav className="h-16 fixed top-0 left-0 right-0 bg-white shadow-lg z-50 font-headerfont">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0 flex items-center rounded-none">
@@ -22,14 +22,7 @@ const Navigation = () => {
               alt="Logo"
               className=" w-34 h-16 rounded-none"
             />
-            {/* <div className="ml-2">
-              <span className="text-xl font-abc font-semibold">
-                Abhi Service
-              </span>
-              <span className="text-purple-600 text-base font-abc block">
-                COOL AIR COOL LIFE
-              </span>
-            </div> */}
+           
           </div>
           {/* Desktop Menu */}
           <div className="hidden sm:flex sm:space-x-8">

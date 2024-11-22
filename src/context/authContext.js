@@ -1,31 +1,40 @@
-// src/context/authContext.js
+
 "use client";
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
-  const [isAdmin, setIsAdmin] = useState(() => {
-    return localStorage.getItem("isAdmin") === "true";
-  });
-  
-  const login = () => {
-    setIsAdmin(true);
-    localStorage.setItem("isAdmin", "true");
-  };
-  
-  const logout = () => {
-    setIsAdmin(false);
-    localStorage.removeItem("isAdmin"); // Remove login state from localStorage
-  };
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false); // To avoid rendering issues
 
   useEffect(() => {
-    const storeAdminStatus = localStorage.getItem("isAdmin") === "true";
-    if (storeAdminStatus !== isAdmin){
-      setIsAdmin(storeAdminStatus);
-    }
+    // Access localStorage only after the component has mounted
+    const storeAdminStatus =
+      typeof window !== "undefined" &&
+      localStorage.getItem("isAdmin") === "true";
+    setIsAdmin(storeAdminStatus);
+    setIsInitialized(true); // Indicates initialization is complete
   }, []);
+
+  const login = () => {
+    setIsAdmin(true);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("isAdmin", "true");
+    }
+  };
+
+  const logout = () => {
+    setIsAdmin(false);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("isAdmin");
+    }
+  };
+
+  if (!isInitialized) {
+    // Prevent rendering children until initialization is complete
+    return null;
+  }
 
   return (
     <AuthContext.Provider value={{ isAdmin, login, logout }}>

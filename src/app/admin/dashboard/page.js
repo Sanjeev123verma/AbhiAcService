@@ -17,12 +17,12 @@ export default function Dashboard() {
         const data = await response.json();
         
         if (response.ok) {
-          setCount(data.length);
+          setCount(data.total);
         } else {
-          console.error('Failed to fetch user:', data.message);
+          console.error('Failed to fetch total user:', data.message);
         }
       } catch (error) {
-        console.error('Error fetching user:', error.message);
+        console.error('Error fetching total user:', error.message);
       }
     };
 

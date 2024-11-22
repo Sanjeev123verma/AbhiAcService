@@ -8,9 +8,9 @@ import Image from 'next/image';
 export default function Services () {
   return (
      <>
-     <PageHeader title="Our Services" breadcrumb="/ Service" />
+     <PageHeader title="Our Services" breadcrumb=" Services" />
      <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-cover bg-center opacity-10" style={{ backgroundImage: "url('/Images/background-image.jpg')" }}> </div>
+      {/* <div className=" h-screen absolute inset-0 bg-cover bg-center opacity-10" style={{ backgroundImage: "url('/Images/background-image.jpg')" }}> </div> */}
       <AcServiceInfo/>
       <Brands/>
       <Cards/>
@@ -27,11 +27,11 @@ const Cards = () => {
 
   const services = [
     { title: "AC Dry Service", originalPrice: "₹399", discountedPrice: "₹299", image: "/images/w1.jpeg" },
-    { title: "AC Installation",originalPrice: "₹1416", discountedPrice: "₹999", image: "/images/w2.jpeg" },
-    { title: "AC Jacket Chemical Jet Wash Service", originalPrice: "₹799", discountedPrice: "₹599", image: "/images/m1.jpeg" },
+    { title: "AC Jacket Chemical Jet Wash Service", originalPrice: "₹499", discountedPrice: "₹399", image: "/images/m1.jpeg" },
     { title: "Ac Full Chemical Wash", originalPrice: "₹1699", discountedPrice: "₹1499", image: "/images/hitachi-ac.jpg" },
     { title: "Daikin AC Service & Repair", image: "/images/daikin-ac.jpg" },
     { title: "Ac Unistallation", originalPrice: "₹599", discountedPrice: "₹499", image: "/images/other-brands-ac.jpg" },
+    { title: "AC Installation",originalPrice: "₹1416", discountedPrice: "₹999", image: "/images/w2.jpeg" },
     { title: "AC Gas Filling R32, R410, R22, R290 (3 Months Warranty Included)", originalPrice: "₹3499", discountedPrice: "₹2999", image: "/logos/gas.jpeg" },
   ];
 

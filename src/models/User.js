@@ -20,6 +20,19 @@ const UserSchema = new mongoose.Schema({
   },
   message: {
     type: String,
+    required: false,
+  },
+  status: {
+     type: String,
+     enum: ['Pending', 'Completed'], 
+     default: "Pending",
+  },
+  
+  completedAt: { type: Date },
+
+  deleted: {
+    type: Boolean,
+    default: false,
   },
 }, {
   timestamps: true // This will add createdAt and updatedAt fields automatically

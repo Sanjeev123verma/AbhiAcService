@@ -9,7 +9,15 @@ export async function POST(request) {
    const body = await request.json();
    console.log(body);
 
-    const { name, phone, address, service, message } = body;
+    const { name, phone, address, service, message = null } = body;
+
+      // Validate required fields
+      if (!name || !phone || !address || !service) {
+        return NextResponse.json(
+          { message: 'Please fill in all required fields (name, phone, address, service).' },
+          { status: 400 }
+        );
+      }
 
     // Optionally, add more validation like phone number format, service options, etc.
     const phonePattern = /^[0-9]{10}$/; // Example of a 10-digit phone number
@@ -23,7 +31,7 @@ export async function POST(request) {
       phone,
       address,
       service,
-      message, 
+      message,
     });
 
     await newContact.save();  // Save data to MongoDB

@@ -15,6 +15,7 @@ const ContactPage = () => {
   });
 
   const [statusMessage, setStatusMessage] = useState('');
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
   const searchParams = useSearchParams(); // Initialize the router
   const service = searchParams.get('service');  // Get the service query parameter
 
@@ -37,7 +38,7 @@ const ContactPage = () => {
 
       const result = await res.json();
       if (res.ok) {
-        setStatusMessage('Thank you for your message! Our Technician will visit to you soon.');
+        setStatusMessage('Thank you for your message! Our Technician will Contact to you soon.');
         setFormData({
           name: '',
           phone: '',
@@ -52,6 +53,11 @@ const ContactPage = () => {
       setStatusMessage('An error occurred. Please try again.');
       console.error('Error submitting the form:', error);
     }
+    setIsPopupVisible(true); 
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false); // Hide the pop-up
   };
 
   return (
@@ -129,12 +135,12 @@ const ContactPage = () => {
                Book now
               </button>
             </form>
-            {statusMessage && <p className="mt-4 text-center text-lg font-bold text-green-500">{statusMessage}</p>}
           </div>
+
 
           {/* Contact Information */}
           <div className="bg-slate-100 rounded-lg p-5 shadow-md max-w-sm mx-auto font-abc text-xl">
-            <h1 className="text-4xl font-extrabold mb-12 text-center">
+            <h1 className="text-4xl font-extrabold my-12 text-center">
               Contact Info
             </h1>
             <div className="mb-8 flex items-center space-x-4">
@@ -152,11 +158,11 @@ const ContactPage = () => {
               <AiOutlineMail className="text-blue-500 text-4xl" />
               <p>abhiacservice@gmail.com</p>
             </div>
-            <div className="mb-8 flex items-center space-x-6">
+            <div className="mb-12 flex items-center space-x-6">
               <FaGlobe className="text-blue-500 text-4xl " />
               <p>www.abhiacservice.com</p>
             </div>
-            <div className="flex justify-center space-x-3 text-blue-500 text-xl gap-4">
+            <div className="flex justify-center space-x-3 text-blue-500 text-xl gap-6">
               <FaFacebook />
               <FaTwitter />
               <FaLinkedin />
@@ -165,6 +171,22 @@ const ContactPage = () => {
           </div>
         </div>
       </div>
+
+        {/* Pop-up */}
+        {isPopupVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded shadow-lg max-w-md text-center">
+            <p className="text-lg text-green-600 font-semibold">{statusMessage}</p>
+            <button
+              onClick={closePopup}
+              className="mt-4 bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="m-2">
         <h1 className="text-4xl font-bold text-center mt-10 mb-2">
           Our Location

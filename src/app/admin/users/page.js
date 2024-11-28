@@ -1,83 +1,3 @@
-// // src/app/admin/dashboard.js
-// "use client";
-// import AdminLayout from '@/app/admin/AdminLayout';
-// import { useState, useEffect } from 'react';
-// import { format } from 'date-fns'; // You can use this library for date formatting
-
-// const UsersPage = () => {
-//   const [users, setUsers] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     const fetchUsers = async () => {
-//       try {
-//         const res = await fetch('/api/users');
-//         if (!res.ok) {
-//           throw new Error('Failed to fetch users');
-//         }
-//         const data = await res.json();
-//         setUsers(data);
-//         setLoading(false);
-//       } catch (error) {
-//         setError(error.message);
-//         setLoading(false);
-//       }
-//     };
-//     fetchUsers();
-//   }, []);
-
-//   const formatDate = (date) => format(new Date(date), 'd-MMM-yyyy');
-//   const formatTime = (date) => format(new Date(date), 'h:mm a');
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) return <p>{error}</p>;
-
-//   return (
-    
-//     <AdminLayout>
-//       <div className="text-center justify-center px-4 py-8">
-//       <h1 className="text-2xl font-bold mb-20">Users List</h1>
-//       <table className=" lg:ml-64 border-collapse">
-//         <thead>
-//           <tr>
-//           <th className="border-4 p-2">Sr.No</th> {/* Add Sr.No header */}
-//             <th className="border-4 p-2">Name</th>
-//             <th className="border-4 p-2">Phone</th>
-//             <th className="border-4 p-2">Address</th>
-//             <th className="border-4 p-2">Service</th>
-//             <th className="border-4 p-2">Message</th>
-//             <th className="border-4 p-2">Registered At</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {users.map((user, index) => (
-//             <tr key={user._id}>
-//                <td className="border p-2">{index + 1}</td> {/* Display Sr.No */}
-//               <td className="border p-2">{user.name}</td>
-//               <td className="border p-2">{user.phone}</td>
-//               <td className="border p-2">{user.address}</td>
-//               <td className="border p-2">{user.service}</td>
-//               <td className="border p-2">{user.message}</td>
-//               <td className="border p-2">{user.createdAt ? (
-//                 <>
-//                 {formatDate(user.createdAt)}
-//                 <br />
-//                 {formatTime(user.createdAt)} 
-//                 </>
-//               ) : 'N/A'}
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//     </AdminLayout>  
-//   );
-// };
-// export default UsersPage;
-
-
 "use client";
 import AdminLayout from "@/app/admin/AdminLayout";
 import { useState, useEffect, useRef } from "react";
@@ -94,8 +14,11 @@ const UsersPage = () => {
   const [sortField, setSortField] = useState("createdAt");
   const [sortOrder, setSortOrder] = useState("desc");
   const [search, setSearch] = useState("");
-  const [limit, setLimit] = useState(10);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
   const searchTimeout = useRef(null);
+
+  const limit = 10;  // Fixed number of users per page
 
   // Fetch users from the backend
   const fetchUsers = async (searchQuery = "") => {
@@ -149,8 +72,25 @@ const UsersPage = () => {
       // Refetch users after successful deletion
       fetchUsers(search);
     } catch (error) {
-      alert(error.message);
+      // alert(error.message);
     }
+  };
+
+  // Open delete modal
+  const openDeleteModal = (userId) => {
+    setUserToDelete(userId);
+    setIsDeleteModalOpen(true);
+  };
+
+  // Close delete modal
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  // Confirm delete action
+  const handleDeleteConfirm = async () => {
+    await handleDelete(userToDelete);
+    setIsDeleteModalOpen(false);
   };
 
   // Fetch users on component mount or when dependencies change
@@ -174,21 +114,36 @@ const UsersPage = () => {
   const formatDate = (date) => format(new Date(date), "d-MMM-yyyy");
   const formatTime = (date) => format(new Date(date), "h:mm a");
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <div className="flex justify-center items-center mt-20"><div className="spinner-border animate-spin text-blue-500 w-16 h-16 border-4 rounded-full" /></div>;
+  if (error) return <div className="flex justify-center items-center mt-20"><div className="bg-red-500 text-white p-4 rounded-md"><p>{error}</p><button onClick={() => fetchUsers(search)} className="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Retry</button></div></div>;
 
   return (
     <AdminLayout>
-      
+      {/* Delete Confirmation Modal */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50">
+          <div className="bg-white p-4 rounded shadow-lg">
+            <h2 className="text-xl mb-4">Are you sure you want to delete this user?</h2>
+            <div className="flex justify-end gap-4">
+              <button onClick={closeDeleteModal} className="px-4 py-2 bg-gray-500 text-white rounded">
+                Cancel
+              </button>
+              <button onClick={handleDeleteConfirm} className="px-4 py-2 bg-red-500 text-white rounded">
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="text-center justify-center px-4 overflow-hidden">
-      <h1 className="text-2xl font-bold mb-4">Users List</h1>
-      <div className="text-2xl font-abc text-purple-400 mb-8">
-          <p>
-            <strong>Total Users:</strong> {totalUsers} {/* Display total users dynamically */}
-          </p>
-      </div>
-         {/* Search Input */}
-        <div className="flex justify-center mb-4 ">
+        <h1 className="text-2xl font-bold mb-4">Users List</h1>
+        <div className="text-2xl font-abc text-purple-400 mb-8">
+          <p><strong>Total Users:</strong> {totalUsers}</p>
+        </div>
+
+        {/* Search Input */}
+        <div className="flex justify-center mb-4">
           <input
             type="text"
             placeholder="Search by name"
@@ -199,86 +154,59 @@ const UsersPage = () => {
         </div>
 
         {/* Users Table */}
-        <table className="border-collapse lg:ml-64">
-          <thead>
-            <tr>
-              <th className="border-4 p-2">Sr.No</th>
-              <th
-                className="border-4 p-2 cursor-pointer text-xl font-abc text-blue-500"
-                onClick={() => {
-                  setSortField("name");
-                  setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-                }}
-              >
-                Name {sortField === "name" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
-              </th>
-              <th className="border-4 p-2 text-xl font-abc text-blue-500">Phone</th>
-              <th className="border-4 p-2">Address</th>
-              <th className="border-4 p-2">Service</th>
-              <th className="border-4 p-2">Message</th>
-              <th
-                className="border-4 px-4 font-abc text-xl text-green-500 cursor-pointer"
-                onClick={() => {
-                  setSortField("createdAt");
-                  setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-                }}
-              >
-                Registered At{" "}
-                {sortField === "createdAt" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
-              </th>
-              <th className="border-4 p-2">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={user._id}>
-                <td className="border p-2">{index + 1 + (currentPage - 1) * limit}</td>
-                <td className="border p-2">{user.name}</td>
-                <td className="border p-2">{user.phone}</td>
-                <td className="border p-2">{user.address}</td>
-                <td className="border p-2">{user.service}</td>
-                <td className="border p-2">{user.message}</td>
-                <td className="border p-2">
-                  {user.createdAt ? (
-                    <>
-                      {formatDate(user.createdAt)}
-                      <br />
-                      {formatTime(user.createdAt)}
-                    </>
-                  ) : (
-                    "N/A"
-                  )}
-                </td>
-                <td className="border p-2">
-                  <button
-                    onClick={() => handleDelete(user._id)}
-                    className="bg-red-500 text-white px-1 py-1 rounded hover:bg-red-600"
-                  >
-                    <RiDeleteBin6Fill />
-                  </button>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="border-collapse lg:ml-64">
+            <thead>
+              <tr>
+                <th className="border-4 p-2">Sr.No</th>
+                <th className="border-4 p-2 cursor-pointer text-xl font-abc text-blue-500" onClick={() => { setSortField("name"); setSortOrder(sortOrder === "asc" ? "desc" : "asc"); }}>
+                  Name {sortField === "name" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
+                </th>
+                <th className="border-4 p-2 text-xl font-abc text-blue-500">Phone</th>
+                <th className="border-4 p-2">Address</th>
+                <th className="border-4 p-2">Service</th>
+                <th className="border-4 p-2">Message</th>
+                <th className="border-4 px-4 font-abc text-xl text-green-500 cursor-pointer" onClick={() => { setSortField("createdAt"); setSortOrder(sortOrder === "asc" ? "desc" : "asc"); }}>
+                  Registered At {sortField === "createdAt" ? (sortOrder === "asc" ? "↑" : "↓") : ""}
+                </th>
+                <th className="border-4 p-2">Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {users.map((user, index) => (
+                <tr key={user._id}>
+                  <td className="border p-2">{index + 1 + (currentPage - 1) * limit}</td>
+                  <td className="border p-2">{user.name}</td>
+                  <td className="border p-2">{user.phone}</td>
+                  <td className="border p-2">{user.address}</td>
+                  <td className="border p-2">{user.service}</td>
+                  <td className="border p-2">{user.message}</td>
+                  <td className="border p-2">
+                    {user.createdAt ? (
+                      <>
+                        {formatDate(user.createdAt)}<br />
+                        {formatTime(user.createdAt)}
+                      </>
+                    ) : "N/A"}
+                  </td>
+                  <td className="border p-2">
+                    <button onClick={() => openDeleteModal(user._id)} className="bg-red-500 text-white px-1 py-1 rounded hover:bg-red-600">
+                      <RiDeleteBin6Fill />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         {/* Pagination Controls */}
         <div className="flex justify-center mt-4">
-          <button
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-            className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600 disabled:opacity-50"
-          >
+          <button onClick={handlePrevPage} disabled={currentPage === 1} className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600 disabled:opacity-50">
             Previous
           </button>
-          <span className="mx-4">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-            className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600 disabled:opacity-50"
-          >
+          <span className="px-4 py-1">Page {currentPage} of {totalPages}</span>
+          <button onClick={handleNextPage} disabled={currentPage === totalPages} className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600 disabled:opacity-50">
             Next
           </button>
         </div>
@@ -288,4 +216,3 @@ const UsersPage = () => {
 };
 
 export default UsersPage;
-

@@ -1,7 +1,7 @@
-
 import AcServiceInfo from "@/components/AcServiceInfo";
 import ExperienceSection from "@/components/Experience";
 import Banner from "@/components/Banner";
+import AuthorizeServiceCentres from "@/components/AuthorizeServiceCentres";
 
 
 export default function Home() {
@@ -11,6 +11,7 @@ export default function Home() {
       <Features />
       <AcServiceInfo />
       <ExperienceSection />
+      <AuthorizeServiceCentres />
     </main>
   );
 }

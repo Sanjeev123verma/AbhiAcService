@@ -90,7 +90,7 @@ const Brands = () => {
     { name: 'Fedders', src: '/logos/brand9.png' },
     { name: 'Daikin', src: '/logos/brand10.png' },
     { name: 'General', src: '/logos/brand11.png' },
-    { name: 'Sansui', src: '/logos/sansui.png' },
+    { name: 'Sansui', src: '/logos/sansui1.png' },
   ];
 
   return (

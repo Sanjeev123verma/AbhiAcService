@@ -14,6 +14,7 @@ const ContactPage = () => {
     message: '',
   });
 
+  const [errors, setErrors] = useState({});
   const [statusMessage, setStatusMessage] = useState('');
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const searchParams = useSearchParams(); // Initialize the router
@@ -21,13 +22,68 @@ const ContactPage = () => {
 
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    let error = "";
+
+    if (name === "name") {
+      // Name must contain only letters and spaces, and be 3-50 characters long
+      if (!/^[A-Za-z\s]{3,20}$/.test(value)) {
+        error = "Name should be 3-20 characters long and contain only letters.";
+      }
+    }
+
+    if (name === "phone") {
+      // Phone must be 10 digits (Indian mobile number format)
+      if (!/^[6-9]\d{9}$/.test(value)) {
+        error = "Phone number must be a valid 10-digit number.";
+      }
+    }
+
+    if (name === "message" && value.length > 0 ) {
+      // Optional validation: Ensure message isn't too short
+      if (value.length < 5) {
+        error = "Message should be at least 5 characters long.";
+      }
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatusMessage(''); // Clear previous status message
+    setIsPopupVisible(false);
+
+    // Validate all fields before submitting
+    const newErrors = {};
+    if (!/^[A-Za-z\s]{3,50}$/.test(formData.name)) {
+      newErrors.name = "Name should be 3-20 characters long and contain only letters.";
+    }
+    if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      newErrors.phone = "Phone number must be a valid 10-digit number.";
+    }
+    if (!formData.address) {
+      newErrors.address = "Address is required.";
+    }
+    if (!formData.service) {
+      newErrors.service = "Please select a service.";
+    }
+    if (formData.message && formData.message.length < 5) {
+      newErrors.message = "Message should be at least 5 characters long.";
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      // Stop submission if there are validation errors
+      return;
+    }
+    
+    
+    
+    
     try {
+
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -80,6 +136,8 @@ const ContactPage = () => {
                 className="w-full p-2 border rounded"
                 required
               />
+              {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+
               <label htmlFor="phone" className="sr-only">Phone</label>
               <input
                 id="phone"
@@ -91,6 +149,8 @@ const ContactPage = () => {
                 className="w-full p-2 border rounded"
                 required
               />
+               {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+
               <label htmlFor="address" className="sr-only">Address</label>
               <textarea
                 id="address"
@@ -118,6 +178,8 @@ const ContactPage = () => {
                 <option value="PCB Repair">PCB Repair</option>
                 <option value="Other Issue">Other Issue</option>
               </select>
+              {errors.service && <p className="text-red-500 text-sm">{errors.service}</p>}
+
               <label htmlFor="message" className="sr-only">Message</label>
               <textarea
                 id="message"
@@ -126,7 +188,6 @@ const ContactPage = () => {
                 onChange={handleChange}
                 placeholder="Message"
                 className="w-full p-2 border rounded h-32"
-                required
               ></textarea>
               <button
                 type="submit"

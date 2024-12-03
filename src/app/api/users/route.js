@@ -41,55 +41,55 @@ export async function GET(req) {
   }
 }
 
-// PUT: Update user status (active/inactive)
-export async function PUT(req) {
-  await dbConnect();
-  try {
-    const { id, status } = await req.json(); // Get the id and status from the request body
+// // PUT: Update user status (active/inactive)
+// export async function PUT(req) {
+//   await dbConnect();
+//   try {
+//     const { id, status } = await req.json(); // Get the id and status from the request body
 
-    if (!id || !status) {
-      return NextResponse.json(
-        { message: 'ID and status are required' },
-        { status: 400 }
-      );
-    }
-    // Ensure the status is either 'active' or 'inactive'
-    if (!['pending', 'success'].includes(status)) {
-      return NextResponse.json(
-        { message: 'Invalid status value' },
-        { status: 400 }
-      );
-    }
+//     if (!id || !status) {
+//       return NextResponse.json(
+//         { message: 'ID and status are required' },
+//         { status: 400 }
+//       );
+//     }
+//     // Ensure the status is either 'active' or 'inactive'
+//     if (!['pending', 'success'].includes(status)) {
+//       return NextResponse.json(
+//         { message: 'Invalid status value' },
+//         { status: 400 }
+//       );
+//     }
 
-    const updateData = { status };
-    if (status === 'success') {
-      updateData.completedAt = new Date(); // Set createdAt for completed services
-      console.log('CompletedAt timestamp set:', updateData.completedAt); 
-    }
+//     const updateData = { status };
+//     if (status === 'success') {
+//       updateData.completedAt = new Date(); // Set createdAt for completed services
+//       console.log('CompletedAt timestamp set:', updateData.completedAt); 
+//     }
 
-   const updatedUser = await User.findByIdAndUpdate(id, updateData, {
-      new: true, // Return the updated document
-    });
+//    const updatedUser = await User.findByIdAndUpdate(id, updateData, {
+//       new: true, // Return the updated document
+//     });
 
-    if (!updatedUser) {
-      return NextResponse.json(
-        { message: 'User not found' },
-        { status: 404 }
-      );
-    }
+//     if (!updatedUser) {
+//       return NextResponse.json(
+//         { message: 'User not found' },
+//         { status: 404 }
+//       );
+//     }
 
-    return NextResponse.json(
-      { message: 'User status updated', user: updatedUser },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('Error updating user:', error.message);
-    return NextResponse.json(
-      { message: 'Failed to update user', error: error.message },
-      { status: 500 }
-    );
-  }
-}
+//     return NextResponse.json(
+//       { message: 'User status updated', user: updatedUser },
+//       { status: 200 }
+//     );
+//   } catch (error) {
+//     console.error('Error updating user:', error.message);
+//     return NextResponse.json(
+//       { message: 'Failed to update user', error: error.message },
+//       { status: 500 }
+//     );
+//   }
+// }
 
 // DELETE: Delete user by ID
 export async function DELETE(req) {
@@ -105,14 +105,14 @@ export async function DELETE(req) {
       );
     }
 
-    const deletedUser = await User.findByIdAndDelete(userId);
+    // const deletedUser = await User.findByIdAndDelete(userId);
 
-    if (!deletedUser) {
-      return NextResponse.json(
-        { message: 'User not found' },
-        { status: 404 }
-      );
-    }
+    // if (!deletedUser) {
+    //   return NextResponse.json(
+    //     { message: 'User not found' },
+    //     { status: 404 }
+    //   );
+    // }
 
     return NextResponse.json(
       { message: 'User deleted successfully', userId },

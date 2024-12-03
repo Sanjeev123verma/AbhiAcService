@@ -2,17 +2,40 @@ import AcServiceInfo from "@/components/AcServiceInfo";
 import ExperienceSection from "@/components/Experience";
 import Banner from "@/components/Banner";
 import AuthorizeServiceCentres from "@/components/AuthorizeServiceCentres";
-
+import Head from "next/head";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-between w-full overflow-x-hidden">
-      <Banner />
-      <Features />
-      <AcServiceInfo />
-      <ExperienceSection />
-      <AuthorizeServiceCentres />
-    </main>
+    <>
+      <Head>
+        <title>Abhi AC Service - Best AC Services</title>
+        <meta
+          name="description"
+          content="Book the best AC services for your home and office. Reliable and affordable."
+        />
+        <meta name="keywords" content="AC service, AC repair, AC maintenance" />
+        <meta name="author" content="Abhi AC Service" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          property="og:title"
+          content="Abhi AC Service - Best AC Services"
+        />
+        <meta
+          property="og:description"
+          content="Book the best AC services for your home and office. Reliable and affordable."
+        />
+        <meta property="og:url" content="https://www.abhiacservice.com/" />
+        <meta property="og:image" content="/static/images/og-image.jpg" />
+        <link rel="canonical" href="https://www.abhiacservice.com/" />
+      </Head>
+      <main className="flex flex-col items-center justify-between w-full overflow-x-hidden">
+        <Banner />
+        <Features />
+        <AcServiceInfo />
+        <ExperienceSection />
+        <AuthorizeServiceCentres />
+      </main>
+    </>
   );
 }
 
@@ -52,7 +75,9 @@ const FeatureCard = ({ imgSrc, title, description }) => (
     <img src={imgSrc} alt="Icon Image" className="w-14 lg:w-16 h-12" />
     <div className="border-r-2 border-blue-600 rounded-r p-4 flex flex-col justify-between leading-normal">
       <div>
-        <h3 className="text-white font-extrabold text-lg lg:text-xl mb-2">{title}</h3>
+        <h3 className="text-white font-extrabold text-lg lg:text-xl mb-2">
+          {title}
+        </h3>
         <p className="text-base  font-bold">{description}</p>
       </div>
     </div>

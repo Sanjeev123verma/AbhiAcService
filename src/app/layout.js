@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "../globals.css";
 import Head from "next/head";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 
 const WhatsApp = dynamic(() => import("@/components/Whatsapp"), { ssr: false });
 
@@ -34,6 +36,7 @@ export default function RootLayout({ children }) {
           <main className="flex-grow">{children}</main>
           {!isAdminRoute && <Footer />}
           {!isAdminRoute && <WhatsApp />}
+          <SpeedInsights/>
         </AuthProvider>
       </body>
     </html>
